@@ -9,6 +9,7 @@ app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 app.use(express.static('public'));
 
+
 // TODO: Write DB script
     // Read file to access db.json
 
@@ -26,14 +27,12 @@ app.get("/notes", (req, res) => res.sendFile(path.join(__dirname, "public/notes.
 
 
 // TODO: get * should read db.json
+app.get("*", (req, res) => res.sendFile(path.join(__dirname, "public/index.html")));
 
 
 
 // TODO: BONUS add delete fucntion
 
-app.get("/", function(req,res){
-    res.send("boilerplate");
-});
 
 
 app.listen(PORT, function(){
