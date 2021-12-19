@@ -1,0 +1,14 @@
+const express = require('express');
+const fs = requre('fs');
+const path = require('path');
+
+const app = express();
+
+app.get("/", function(req,res){
+    res.send("boilerplate");
+});
+
+
+app.listen(3000, function(){
+    console.log("Server started on port 3000");
+});
