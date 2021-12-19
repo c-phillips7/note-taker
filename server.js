@@ -1,9 +1,9 @@
 const express = require('express');
-const fs = requre('fs');
+const fs = require('fs');
 const path = require('path');
 
 const app = express();
-const PORT = process.env.PORT || 3000;
+const PORT = process.env.PORT || 3001;
 
 
 // TODO: Write DB script
@@ -14,9 +14,13 @@ const PORT = process.env.PORT || 3000;
     // Translate db data to notes
 
 
+
 // TODO: get requests to api/notes for notes.html
+app.get("/notes", (req, res) => res.sendFile(path.join(__dirname, "public/notes.html")));
 
 // TODO: post request for api/notes
+
+
 
 // TODO: get * should read db.json
 
