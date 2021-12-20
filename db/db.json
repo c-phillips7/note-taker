@@ -1,1 +1,7 @@
-[{"title":"Welcome to Note Taker!","text":"This handy app will let you write and save your notes with ease, hope you enjoy.","id":1}]
+[
+    {
+        "title": "Welcome to Note Taker!",
+        "text": "This handy app will let you write and save your notes with ease, hope you enjoy.",
+        "id": 1
+    }
+]
