@@ -1,12 +1,17 @@
 const express = require('express');
 const fs = require('fs');
+const {
+    add
+} = require('nodemon/lib/rules');
 const path = require('path');
 const util = require('util');
 
 const app = express();
 const PORT = process.env.PORT || 3001;
 
-app.use(express.urlencoded({ extended: true }));
+app.use(express.urlencoded({
+    extended: true
+}));
 app.use(express.json());
 app.use(express.static('public'));
 
@@ -14,28 +19,26 @@ const readFileAsync = util.promisify(fs.readFile);
 const writeFileAsync = util.promisify(fs.writeFile);
 
 // TODO: Write DB scripts
-    // Read file to access db.json
-    readDb = () => {
-        return readFileAsync("./db/db.json", "utf8").then(data => JSON.parse(data))
-            .catch(function (err) {
+// Read file to access db.json
+readDb = () => {
+    return readFileAsync("./db/db.json", "utf8").then(data => JSON.parse(data))
+        .catch(function (err) {
             console.log(err);
         });
-    }
+}
 
-    // Write to file to update db.json
-    writetoFile = notes => {
-        writeFileAsync("./db/db.json", JSON.stringify(notes))
-            .then(() => console.log("wrote to db.json"))
-            .catch(function (err) {
-                console.log(err);
-            });
-    };
+// Write to file to update db.json
+writetoFile = notes => {
+    writeFileAsync("./db/db.json", JSON.stringify(notes))
+        .then(() => console.log("wrote to db.json"))
+        .catch(function (err) {
+            console.log(err);
+        });
+};
 
-// TODO: Add function to add id to array so html will display note on click 
-        // starts with 1, not 0 like array, so +1 needed
-
+// Function to add id to array so html will display note on click 
+// starts with 1, not 0 like array, so +1 needed
 addId = (array) => {
-    console.log(array);
     for (let i = 0; i < array.length; i++) {
         array[i].id = i + 1;
     }
@@ -49,8 +52,7 @@ app.get("/notes", (req, res) => res.sendFile(path.join(__dirname, "public/notes.
 
 app.get("/api/notes", async (req, res) => {
     // get data from db, then set it equal to notesArr (async?)
-    const dbData = await readDb();
-    const notesArr = dbData
+    const notesArr = await readDb();
     res.json(notesArr)
 });
 
@@ -70,17 +72,26 @@ app.post("/api/notes", async (req, res) => {
 });
 
 
-
-
-
-
 // TODO: BONUS add delete fucntion
+app.delete("/api/notes/:id", async (req, res) => {
+    const noteArr = await readDb();
+    const deletedId = req.params.id;
+
+    for (let i = 0; i < noteArr.length; i++) {
+        if (deletedId == noteArr[i].id) {
+            // pop wont work?
+            noteArr.splice(i, 1);
+        };
+    };
+    writetoFile(noteArr);
+    res.send(200);
+});
 
 
 //get * to load initial html
 app.get("*", (req, res) => res.sendFile(path.join(__dirname, "public/index.html")));
 
 
-app.listen(PORT, function(){
+app.listen(PORT, function () {
     console.log("Server started on PORT" + PORT);
 });
