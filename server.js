@@ -32,7 +32,15 @@ const writeFileAsync = util.promisify(fs.writeFile);
     };
 
 // TODO: Add function to add id to array so html will display note on click 
-        // starts with 1, not 0 like array
+        // starts with 1, not 0 like array, so +1 needed
+
+addId = (array) => {
+    console.log(array);
+    for (let i = 0; i < array.length; i++) {
+        array[i].id = i + 1;
+    }
+    return array
+}
 
 
 
@@ -48,12 +56,14 @@ app.get("/api/notes", async (req, res) => {
 
 // TODO: post request for api/notes
 app.post("/api/notes", async (req, res) => {
-    const dbData = await readDb();
-    const notesArr = dbData;
-    const newNote = req.body;
+    const notesArr = await readDb();
 
-    // Before push, need to add "id" to json
+    const newNote = req.body;
     notesArr.push(newNote);
+
+    // After push, need to add "id" to json
+    addId(notesArr);
+
     writetoFile(notesArr);
     return res.json(newNote);
 
