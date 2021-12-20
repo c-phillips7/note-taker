@@ -10,7 +10,6 @@
   - [Usage](#usage)
   - [License](#license)
   - [Contributing](#contributing)
-  - [Tests](#tests)
   - [Questions](#questions)
 
   ## Installation
@@ -19,15 +18,15 @@
 
   ## Usage
 
-  Easy way of saving notes that is based on the db.json, allowing for notes to easily be saved or other note databases to be inserted.
+  Easy way of reading, creating or deleting notes that is based on the db.json, allowing for notes to easily be saved or other note databases to be inserted.
 
   ## License
 
-  [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+  No Licenses
 
   ## Contributing
 
-  Open source, feel free to use as you like
+  Open source, feel free to use as you like.
 
 
   ## Questions
